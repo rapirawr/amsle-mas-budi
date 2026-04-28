@@ -84,21 +84,23 @@
    ========================================================================== */
 .reveal-text {
     display: inline-block;
-    transform: translateY(100%);
+    transform: translateY(100%) rotate(2deg);
     opacity: 0;
+    filter: blur(8px);
 }
 
 .reveal-fade {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(30px) scale(0.98);
+    filter: blur(4px);
 }
 
 body.loaded .reveal-text {
-    animation: slideUp 1s var(--ease-out-expo) forwards;
+    animation: slideUpSpatial 1.2s var(--spring-easing) forwards;
 }
 
 body.loaded .reveal-fade {
-    animation: fadeUp 1s var(--ease-out-expo) forwards;
+    animation: fadeUpSpatial 1.2s var(--ease-out-expo) forwards;
 }
 
 /* Delays for hero section */
@@ -110,17 +112,21 @@ body.loaded .hero-title .line:nth-child(4) .reveal-text { animation-delay: 0.6s;
 body.loaded .hero-description { animation-delay: 0.8s; }
 body.loaded .hero-cta { animation-delay: 1s; }
 
-/* Scroll trigger classes */
+/* Scroll trigger classes - 2026 Spatial Trend */
 .scroll-reveal {
     opacity: 0;
-    transform: translateY(50px);
-    transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
-    will-change: opacity, transform;
+    transform: translateY(40px) scale(0.96);
+    filter: blur(10px);
+    transition: opacity 1s var(--ease-out-expo), 
+                transform 1s var(--spring-easing), 
+                filter 1s var(--ease-out-expo);
+    will-change: opacity, transform, filter;
 }
 
 .scroll-reveal.is-revealed {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
+    filter: blur(0);
 }
 
 .stagger-1 { transition-delay: 0.1s; }
@@ -130,29 +136,33 @@ body.loaded .hero-cta { animation-delay: 1s; }
 .stagger-5 { transition-delay: 0.5s; }
 .stagger-6 { transition-delay: 0.6s; }
 
-/* Floating animation */
+/* Floating animation - Added subtle rotation */
 .floating {
-    animation: floating 6s ease-in-out infinite;
+    animation: floatingSpatial 8s ease-in-out infinite;
+    transform-origin: center;
 }
 
-@keyframes slideUp {
+@keyframes slideUpSpatial {
     to {
-        transform: translateY(0);
+        transform: translateY(0) rotate(0deg);
         opacity: 1;
+        filter: blur(0);
     }
 }
 
-@keyframes fadeUp {
+@keyframes fadeUpSpatial {
     to {
-        transform: translateY(0);
+        transform: translateY(0) scale(1);
         opacity: 1;
+        filter: blur(0);
     }
 }
 
-@keyframes floating {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-15px); }
-    100% { transform: translateY(0px); }
+@keyframes floatingSpatial {
+    0% { transform: translateY(0px) rotate(0deg); }
+    33% { transform: translateY(-12px) rotate(1.5deg); }
+    66% { transform: translateY(5px) rotate(-1deg); }
+    100% { transform: translateY(0px) rotate(0deg); }
 }
 
 /* ==========================================================================

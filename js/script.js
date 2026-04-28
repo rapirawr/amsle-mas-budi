@@ -4,12 +4,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // Preloader
     // ==========================================
     setTimeout(() => {
-        document.querySelector('.preloader').classList.add('fade-out');
-        setTimeout(() => {
+        const preloader = document.querySelector('.preloader');
+        if (preloader) {
+            preloader.classList.add('fade-out');
+            setTimeout(() => {
+                document.body.classList.remove('loading');
+                document.body.classList.add('loaded');
+                preloader.style.display = 'none';
+            }, 1000);
+        } else {
             document.body.classList.remove('loading');
             document.body.classList.add('loaded');
-            document.querySelector('.preloader').style.display = 'none';
-        }, 1000);
+        }
     }, 2000);
 
     // ==========================================
@@ -119,10 +125,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         updateNavbar(scrollY) {
             const navbar = document.querySelector('.navbar');
-            if (scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
+            if (navbar) {
+                if (scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
             }
         }
 
@@ -265,7 +273,42 @@ document.addEventListener('DOMContentLoaded', () => {
                     top: offsetPosition,
                     behavior: "smooth"
                 });
+
+                // Close mobile menu if open
+                const navLinks = document.querySelector('.nav-links');
+                const menuToggleIcon = document.querySelector('.menu-toggle i');
+                if (navLinks && navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                    if(menuToggleIcon) {
+                        menuToggleIcon.classList.remove('ri-close-line');
+                        menuToggleIcon.classList.add('ri-menu-4-line');
+                    }
+                }
             }
         });
     });
+
+    // ==========================================
+    // Mobile Menu Toggle
+    // ==========================================
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    
+    if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            
+            // Toggle icon
+            const icon = menuToggle.querySelector('i');
+            if (icon) {
+                if (navLinks.classList.contains('active')) {
+                    icon.classList.remove('ri-menu-4-line');
+                    icon.classList.add('ri-close-line');
+                } else {
+                    icon.classList.remove('ri-close-line');
+                    icon.classList.add('ri-menu-4-line');
+                }
+            }
+        });
+    }
 });

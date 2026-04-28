@@ -30,10 +30,11 @@
     --border-radius-lg: 32px;
     --border-radius-organic: 40px; /* Modern sleek radius */
     
-    /* Transitions */
+    /* Transitions (2026 Fluid & Spatial Trends) */
     --transition-fast: 0.3s cubic-bezier(0.25, 1, 0.5, 1);
     --transition-slow: 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1); /* Softer, more fluid */
+    --spring-easing: cubic-bezier(0.175, 0.885, 0.32, 1.1); /* Spatial bounce */
 }
 
 .menu-decor {
@@ -646,6 +647,10 @@ img {
 .marquee-content {
     display: inline-block;
     animation: marquee 25s linear infinite;
+}
+
+.marquee-wrapper:hover .marquee-content {
+    animation-play-state: paused;
 }
 
 .marquee-content span {
@@ -1461,6 +1466,16 @@ img {
 /* ==========================================================================
    Responsive
    ========================================================================== */
+@media (max-width: 1200px) {
+    .stats-grid-restyled {
+        gap: 1rem;
+        padding: 1.5rem;
+    }
+    .stat-number-bold {
+        font-size: 2rem;
+    }
+}
+
 @media (max-width: 1024px) {
     .hero-content {
         grid-template-columns: 1fr;
@@ -1479,18 +1494,56 @@ img {
     
     .about-grid {
         grid-template-columns: 1fr;
+        gap: 4rem;
     }
     
-    .about-images {
-        height: 500px;
+    .about-images-restyled {
+        height: 450px;
+        justify-content: center;
     }
     
-    .product-grid {
-        grid-template-columns: repeat(2, 1fr);
+    .main-img-box {
+        width: 80%;
     }
     
-    .features-grid {
-        grid-template-columns: repeat(2, 1fr);
+    .secondary-img-box {
+        width: 200px;
+        height: 280px;
+    }
+
+    .about-content-restyled {
+        padding-left: 0;
+    }
+    
+    .stats-grid-restyled {
+        margin-top: 2rem;
+    }
+
+    .single-product-showcase {
+        display: flex;
+        flex-direction: column-reverse;
+        gap: 3rem;
+        text-align: left;
+    }
+    
+    .showcase-image-container {
+        margin-top: 2rem;
+        height: 400px;
+    }
+    
+    .showcase-badge {
+        right: 5%;
+    }
+    
+    .ritual-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+    
+    .ritual-visual-footer {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        margin-top: 6rem;
     }
     
     .footer-grid {
@@ -1499,29 +1552,103 @@ img {
 }
 
 @media (max-width: 768px) {
-    .nav-links, .nav-actions .btn {
+    .nav-actions .btn {
         display: none;
     }
     
     .menu-toggle {
         display: block;
+        position: relative;
+        z-index: 101;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: var(--bg-primary);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        z-index: 100;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.4s var(--ease-out-expo), transform 0.4s var(--ease-out-expo);
+        transform: translateY(-20px);
+    }
+
+    .nav-links.active {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+    }
+    
+    .nav-link {
+        font-size: 1.5rem;
     }
     
     .hero {
         padding-top: 100px;
     }
     
-    h1 { font-size: 3.5rem; }
-    h2 { font-size: 2.5rem; }
+    h1 { font-size: 2.8rem; }
+    h2 { font-size: 2.2rem; }
+    .about-title-large { font-size: 2.5rem; }
+    .showcase-title { font-size: 2.5rem; }
+    .cta-title { font-size: 2rem; }
+    .hero-bg-text, .about-bg-text { display: none; }
     
-    .product-grid {
+    .section-padding {
+        padding: var(--space-lg) 5%;
+    }
+
+    .stats-grid-restyled {
         grid-template-columns: 1fr;
+        gap: 1.5rem;
     }
     
-    .features-grid {
-        grid-template-columns: 1fr;
+    /* Product Section Mobile Fixes */
+    .menu-decor {
+        display: none; /* Sembunyikan hiasan agar tidak menutupi konten di HP */
     }
     
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.5rem;
+        margin-bottom: 3rem;
+    }
+    
+    .single-product-showcase {
+        gap: 2rem;
+    }
+    
+    .showcase-image-container {
+        height: 300px;
+    }
+    
+    .showcase-badge {
+        width: 80px;
+        height: 80px;
+        bottom: 0;
+        right: 0;
+    }
+    
+    .badge-price {
+        font-size: 1rem;
+    }
+    
+    .cta-section {
+        padding: 6rem 5%;
+    }
+
+    .cta-content {
+        padding: 2rem 1.5rem;
+    }
+
     .cta-form {
         flex-direction: column;
     }
