@@ -86,11 +86,13 @@
     display: inline-block;
     transform: translateY(100%) rotate(2deg);
     opacity: 0;
+    filter: blur(8px);
 }
 
 .reveal-fade {
     opacity: 0;
     transform: translateY(30px) scale(0.98);
+    filter: blur(4px);
 }
 
 body.loaded .reveal-text {
@@ -114,14 +116,17 @@ body.loaded .hero-cta { animation-delay: 1s; }
 .scroll-reveal {
     opacity: 0;
     transform: translateY(40px) scale(0.96);
-    transition: opacity 0.8s var(--ease-out-expo), 
-                transform 0.8s var(--spring-easing);
-    will-change: opacity, transform;
+    filter: blur(10px);
+    transition: opacity 1s var(--ease-out-expo), 
+                transform 1s var(--spring-easing), 
+                filter 1s var(--ease-out-expo);
+    will-change: opacity, transform, filter;
 }
 
 .scroll-reveal.is-revealed {
     opacity: 1;
     transform: translateY(0) scale(1);
+    filter: blur(0);
 }
 
 .stagger-1 { transition-delay: 0.1s; }
@@ -141,6 +146,7 @@ body.loaded .hero-cta { animation-delay: 1s; }
     to {
         transform: translateY(0) rotate(0deg);
         opacity: 1;
+        filter: blur(0);
     }
 }
 
@@ -148,6 +154,7 @@ body.loaded .hero-cta { animation-delay: 1s; }
     to {
         transform: translateY(0) scale(1);
         opacity: 1;
+        filter: blur(0);
     }
 }
 
