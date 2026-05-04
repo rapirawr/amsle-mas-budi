@@ -138,8 +138,7 @@ img {
 }
 
 .parallax-image:hover img {
-    transform: scale(1.15) rotate(1deg) !important;
-    filter: brightness(1.1) contrast(1.05);
+    transform: scale(1.1) !important; /* Simplified hover for better performance */
 }
 
 /* Noise Overlay for texture */
@@ -151,10 +150,17 @@ img {
     height: 100vh;
     pointer-events: none;
     z-index: 9999;
-    opacity: 0.15; /* More subtle */
+    opacity: 0.1; /* More subtle */
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
     mix-blend-mode: overlay;
-    animation: grainMove 8s steps(10) infinite;
+    /* Reduced animation frequency for performance */
+    animation: grainMove 10s steps(5) infinite;
+}
+
+@media (max-width: 1024px) {
+    .noise-overlay {
+        animation: none; /* Disable noise animation on mobile */
+    }
 }
 
 @keyframes grainMove {
@@ -245,8 +251,14 @@ img {
     z-index: -2;
     overflow: hidden;
     pointer-events: none;
-    filter: blur(80px);
-    opacity: 0.4;
+    filter: blur(60px); /* Slightly reduced blur for better performance */
+    opacity: 0.3;
+}
+
+@media (max-width: 768px) {
+    .floating-blobs {
+        display: none; /* Blobs are too heavy for mobile GPUs */
+    }
 }
 
 .blob {

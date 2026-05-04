@@ -1,231 +1,253 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Detect mobile/low-power devices
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    const isMobile = window.innerWidth <= 1024;
     
     // ==========================================
     // Preloader
     // ==========================================
-    setTimeout(() => {
-        const preloader = document.querySelector('.preloader');
-        if (preloader) {
-            preloader.classList.add('fade-out');
+    const preloader = document.querySelector('.preloader');
+    if (preloader) {
+        window.addEventListener('load', () => {
             setTimeout(() => {
+                preloader.classList.add('fade-out');
+                setTimeout(() => {
+                    document.body.classList.remove('loading');
+                    document.body.classList.add('loaded');
+                    preloader.style.display = 'none';
+                }, 1000);
+            }, 1000);
+        });
+        
+        // Fallback
+        setTimeout(() => {
+            if (document.body.classList.contains('loading')) {
+                preloader.classList.add('fade-out');
                 document.body.classList.remove('loading');
                 document.body.classList.add('loaded');
-                preloader.style.display = 'none';
-            }, 1000);
-        } else {
-            document.body.classList.remove('loading');
-            document.body.classList.add('loaded');
-        }
-    }, 2000);
+                setTimeout(() => preloader.style.display = 'none', 1000);
+            }
+        }, 5000);
+    }
 
     // ==========================================
-    // Custom Cursor
+    // Custom Cursor (Disabled on Touch)
     // ==========================================
     const cursor = document.querySelector('.cursor');
     const cursorFollower = document.querySelector('.cursor-follower');
     
-    let mouseX = 0, mouseY = 0;
-    let followerX = 0, followerY = 0;
-    
-    document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
+    if (cursor && cursorFollower && !isTouchDevice) {
+        let mouseX = 0, mouseY = 0;
+        let followerX = 0, followerY = 0;
         
-        cursor.style.left = mouseX + 'px';
-        cursor.style.top = mouseY + 'px';
-    });
-    
-    // Smooth follower loop
-    function animateCursor() {
-        followerX += (mouseX - followerX) * 0.1;
-        followerY += (mouseY - followerY) * 0.1;
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            cursor.style.left = mouseX + 'px';
+            cursor.style.top = mouseY + 'px';
+        });
         
-        cursorFollower.style.left = followerX + 'px';
-        cursorFollower.style.top = followerY + 'px';
+        function animateCursor() {
+            followerX += (mouseX - followerX) * 0.1;
+            followerY += (mouseY - followerY) * 0.1;
+            
+            cursorFollower.style.left = followerX + 'px';
+            cursorFollower.style.top = followerY + 'px';
+            
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
         
-        requestAnimationFrame(animateCursor);
+        const hoverElements = document.querySelectorAll('a, button, .clickable');
+        hoverElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.classList.add('hover');
+                cursorFollower.classList.add('hover');
+            });
+            el.addEventListener('mouseleave', () => {
+                cursor.classList.remove('hover');
+                cursorFollower.classList.remove('hover');
+            });
+        });
+    } else {
+        if (cursor) cursor.style.display = 'none';
+        if (cursorFollower) cursorFollower.style.display = 'none';
+        document.body.style.cursor = 'auto';
     }
-    animateCursor();
-    
-    // Hover states for cursor
-    const hoverElements = document.querySelectorAll('a, button');
-    hoverElements.forEach(el => {
-        el.addEventListener('mouseenter', () => {
-            cursor.classList.add('hover');
-            cursorFollower.classList.add('hover');
-        });
-        el.addEventListener('mouseleave', () => {
-            cursor.classList.remove('hover');
-            cursorFollower.classList.remove('hover');
-        });
-    });
 
     // ==========================================
-    // Momentum Scrolling (Vanilla JS)
+    // Scrolling & Parallax
     // ==========================================
-    class SmoothScroll {
+    class OptimizedScroll {
         constructor() {
-            this.bindMethods();
-            this.data = {
-                ease: 0.08,
-                current: window.scrollY,
-                last: window.scrollY,
-                rounded: window.scrollY
-            };
             this.dom = {
-                el: document.querySelector('[data-scroll-container]'),
-                content: document.querySelector('[data-scroll-container]')
+                container: document.querySelector('[data-scroll-container]'),
+                navbar: document.querySelector('.navbar'),
+                parallaxElements: document.querySelectorAll('.parallax-element'),
+                parallaxImages: document.querySelectorAll('.parallax-image img'),
+                bgText: document.querySelector('.hero-bg-text')
             };
+            
+            this.state = {
+                scrollY: window.scrollY,
+                windowHeight: window.innerHeight,
+                isMobile: window.innerWidth <= 1024
+            };
+            
             this.init();
         }
 
-        bindMethods() {
-            ['scroll', 'run', 'resize'].forEach(fn => this[fn] = this[fn].bind(this));
+        init() {
+            if (!this.state.isMobile) {
+                // Smooth scroll logic for desktop
+                this.ease = 0.08;
+                this.current = window.scrollY;
+                this.last = window.scrollY;
+                
+                this.setStyles();
+                this.setHeight();
+                this.run();
+            }
+            
+            this.addEvents();
         }
 
         setStyles() {
-            this.dom.el.style.position = 'fixed';
-            this.dom.el.style.top = 0;
-            this.dom.el.style.left = 0;
-            this.dom.el.style.width = '100%';
-            this.dom.el.style.overflow = 'hidden';
+            if (this.dom.container) {
+                this.dom.container.style.position = 'fixed';
+                this.dom.container.style.top = '0';
+                this.dom.container.style.left = '0';
+                this.dom.container.style.width = '100%';
+                this.dom.container.style.overflow = 'hidden';
+            }
         }
 
         setHeight() {
-            document.body.style.height = `${this.dom.content.getBoundingClientRect().height}px`;
+            if (this.dom.container) {
+                document.body.style.height = `${this.dom.container.getBoundingClientRect().height}px`;
+            }
         }
 
-        resize() {
-            this.setHeight();
-            this.scroll();
-        }
+        addEvents() {
+            window.addEventListener('scroll', () => {
+                this.state.scrollY = window.scrollY;
+                if (this.state.isMobile) {
+                    this.updateOnScroll(this.state.scrollY);
+                }
+            }, { passive: true });
 
-        scroll() {
-            this.data.current = window.scrollY;
+            window.addEventListener('resize', () => {
+                this.state.windowHeight = window.innerHeight;
+                this.state.isMobile = window.innerWidth <= 1024;
+                if (!this.state.isMobile) this.setHeight();
+            });
+
+            window.addEventListener('load', () => {
+                setTimeout(() => this.setHeight(), 1000);
+            });
         }
 
         run() {
-            this.data.last += (this.data.current - this.data.last) * this.data.ease;
-            this.data.rounded = Math.round(this.data.last * 100) / 100;
+            if (this.state.isMobile) return;
 
-            const diff = this.data.current - this.data.rounded;
-            const acc = diff / window.innerWidth;
-            const velo = +acc;
+            this.last += (this.state.scrollY - this.last) * this.ease;
+            const rounded = Math.round(this.last * 100) / 100;
 
-            this.dom.content.style.transform = `translate3d(0, -${this.data.rounded}px, 0)`;
+            if (this.dom.container) {
+                this.dom.container.style.transform = `translate3d(0, -${rounded}px, 0)`;
+            }
 
-            // Update Navbar
-            this.updateNavbar(this.data.rounded);
-            
-            // Update Parallax
-            this.updateParallax(this.data.rounded);
-
-            requestAnimationFrame(this.run);
+            this.updateOnScroll(rounded);
+            requestAnimationFrame(() => this.run());
         }
 
-        updateNavbar(scrollY) {
-            const navbar = document.querySelector('.navbar');
-            if (navbar) {
-                if (scrollY > 50) {
-                    navbar.classList.add('scrolled');
+        updateOnScroll(y) {
+            // Update Navbar
+            if (this.dom.navbar) {
+                if (y > 50) {
+                    this.dom.navbar.classList.add('scrolled');
                 } else {
-                    navbar.classList.remove('scrolled');
+                    this.dom.navbar.classList.remove('scrolled');
                 }
             }
-        }
 
-        updateParallax(scrollY) {
-            // General Parallax Elements
-            const parallaxElements = document.querySelectorAll('.parallax-element');
-            parallaxElements.forEach(el => {
+            // Optimize: Only run parallax if elements are in viewport
+            // (IntersectionObserver handles reveals, we handle parallax here)
+            this.dom.parallaxElements.forEach(el => {
                 const speed = parseFloat(el.getAttribute('data-speed')) || 0.1;
-                const yPos = scrollY * speed;
-                el.style.transform = `translate3d(0, ${yPos}px, 0)`;
+                el.style.transform = `translate3d(0, ${y * speed}px, 0)`;
             });
 
-            // Specific Background Text Parallax
-            const bgText = document.querySelector('.hero-bg-text');
-            if(bgText) {
-                const yPos = scrollY * 0.4;
-                bgText.style.transform = `translate(-50%, calc(-50% + ${yPos}px))`;
+            if (this.dom.bgText) {
+                this.dom.bgText.style.transform = `translate(-50%, calc(-50% + ${y * 0.4}px))`;
             }
 
-            // Image Parallax
-            const parallaxImages = document.querySelectorAll('.parallax-image img');
-            parallaxImages.forEach(img => {
-                const speed = 0.15;
+            this.dom.parallaxImages.forEach(img => {
                 const container = img.parentElement;
-                const containerTop = container.offsetTop;
-                const containerHeight = container.offsetHeight;
-                const windowHeight = window.innerHeight;
+                const rect = container.getBoundingClientRect();
                 
-                if (scrollY + windowHeight > containerTop && scrollY < containerTop + containerHeight) {
-                    const yPos = (scrollY - containerTop) * speed;
+                // Only animate if visible
+                if (rect.top < this.state.windowHeight && rect.bottom > 0) {
+                    const speed = 0.15;
+                    const yPos = (rect.top) * speed;
                     img.style.transform = `translate3d(0, ${yPos}px, 0) scale(1.1)`;
                 }
             });
         }
-
-        init() {
-            this.setStyles();
-            this.setHeight();
-            this.addEvents();
-            requestAnimationFrame(this.run);
-        }
-
-        addEvents() {
-            window.addEventListener('scroll', this.scroll);
-            window.addEventListener('resize', this.resize);
-            
-            // Re-calculate height after all images loaded
-            window.addEventListener('load', () => {
-                setTimeout(() => this.setHeight(), 500);
-            });
-
-            // Re-calculate after preloader
-            setTimeout(() => this.setHeight(), 3000);
-        }
     }
 
-    // Initialize Smooth Scroll
-    const smScroll = new SmoothScroll();
+    const scrollSystem = new OptimizedScroll();
 
     // ==========================================
-    // Scroll Reveal Animations
+    // Intersection Observer for Reveals & Lotties
     // ==========================================
-    const revealElements = document.querySelectorAll('.scroll-reveal');
-    
-    const revealCallback = (entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('is-revealed');
-                observer.unobserve(entry.target); // Only animate once
-            }
-        });
-    };
-    
     const revealOptions = {
         threshold: 0.1,
         rootMargin: "0px 0px -50px 0px"
     };
-    
-    const revealObserver = new IntersectionObserver(revealCallback, revealOptions);
-    
-    revealElements.forEach(el => {
-        revealObserver.observe(el);
+
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-revealed');
+                
+                // If it's a lottie player, play it
+                const lottie = entry.target.querySelector('lottie-player');
+                if (lottie) lottie.play();
+                
+                revealObserver.unobserve(entry.target);
+            }
+        });
+    }, revealOptions);
+
+    document.querySelectorAll('.scroll-reveal').forEach(el => revealObserver.observe(el));
+
+    // Lottie optimization: Pause when not visible
+    const lottieObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            const lottie = entry.target;
+            if (entry.isIntersecting) {
+                lottie.play();
+            } else {
+                lottie.pause();
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('lottie-player').forEach(lottie => {
+        lottieObserver.observe(lottie);
     });
 
     // ==========================================
     // Number Counter Animation
     // ==========================================
-    const counters = document.querySelectorAll('.counter');
-    
-    const counterCallback = (entries, observer) => {
+    const counterObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const target = entry.target;
                 const endVal = parseInt(target.getAttribute('data-target'));
-                const duration = 2000; // ms
+                const duration = 2000;
                 let startTimestamp = null;
                 
                 const step = (timestamp) => {
@@ -236,20 +258,19 @@ document.addEventListener('DOMContentLoaded', () => {
                     target.innerText = Math.floor(easeProgress * endVal);
                     
                     if (progress < 1) {
-                        window.requestAnimationFrame(step);
+                        requestAnimationFrame(step);
                     } else {
                         target.innerText = endVal;
                     }
                 };
                 
-                window.requestAnimationFrame(step);
-                observer.unobserve(target);
+                requestAnimationFrame(step);
+                counterObserver.unobserve(target);
             }
         });
-    };
-    
-    const counterObserver = new IntersectionObserver(counterCallback, { threshold: 0.5 });
-    counters.forEach(counter => counterObserver.observe(counter));
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.counter').forEach(c => counterObserver.observe(c));
 
     // ==========================================
     // Smooth Anchor Scrolling
@@ -258,31 +279,25 @@ document.addEventListener('DOMContentLoaded', () => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
             const targetId = this.getAttribute('href');
-            if(targetId === '#') return;
+            if (targetId === '#') return;
             
             const targetEl = document.querySelector(targetId);
-            if(targetEl) {
+            if (targetEl) {
                 const headerOffset = 80;
                 const elementPosition = targetEl.getBoundingClientRect().top;
-                
-                // For momentum scroll, we need to consider the current transform
-                const currentScroll = window.scrollY;
-                const offsetPosition = elementPosition + currentScroll - headerOffset;
-  
+                const offsetPosition = elementPosition + window.scrollY - headerOffset;
+
                 window.scrollTo({
                     top: offsetPosition,
                     behavior: "smooth"
                 });
 
-                // Close mobile menu if open
+                // Mobile menu close
                 const navLinks = document.querySelector('.nav-links');
-                const menuToggleIcon = document.querySelector('.menu-toggle i');
-                if (navLinks && navLinks.classList.contains('active')) {
+                const icon = document.querySelector('.menu-toggle i');
+                if (navLinks?.classList.contains('active')) {
                     navLinks.classList.remove('active');
-                    if(menuToggleIcon) {
-                        menuToggleIcon.classList.remove('ri-close-line');
-                        menuToggleIcon.classList.add('ri-menu-4-line');
-                    }
+                    icon?.classList.replace('ri-close-line', 'ri-menu-4-line');
                 }
             }
         });
@@ -297,16 +312,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (menuToggle && navLinks) {
         menuToggle.addEventListener('click', () => {
             navLinks.classList.toggle('active');
-            
-            // Toggle icon
             const icon = menuToggle.querySelector('i');
             if (icon) {
                 if (navLinks.classList.contains('active')) {
-                    icon.classList.remove('ri-menu-4-line');
-                    icon.classList.add('ri-close-line');
+                    icon.classList.replace('ri-menu-4-line', 'ri-close-line');
                 } else {
-                    icon.classList.remove('ri-close-line');
-                    icon.classList.add('ri-menu-4-line');
+                    icon.classList.replace('ri-close-line', 'ri-menu-4-line');
                 }
             }
         });
