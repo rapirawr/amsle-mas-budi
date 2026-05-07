@@ -1261,172 +1261,238 @@
     }
 
     /* ==========================================================================
-    Ritual & Philosophy Section - CLEAN MINIMALIST
+    Ritual & Philosophy Section - MAGAZINE EDITORIAL
     ========================================================================== */
-    .ritual-clean {
+    .ritual-magazine {
         position: relative;
         background-color: var(--bg-primary);
-        padding: 8rem 0;
+        padding: 12rem 0;
+        overflow: hidden;
     }
 
-    .ritual-header-minimal {
-        text-align: center;
-        margin-bottom: 6rem;
+    .ritual-bg-accent {
+        position: absolute;
+        top: 10%;
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: var(--font-display);
+        font-size: 20vw;
+        font-weight: 900;
+        color: var(--brand-dark);
+        opacity: 0.02;
+        pointer-events: none;
+        z-index: 0;
+        letter-spacing: -0.05em;
     }
 
-    .minimal-label {
-        font-family: var(--font-body);
+    .ritual-magazine-header {
+        margin-bottom: 8rem;
+        position: relative;
+        z-index: 1;
+    }
+
+    .ritual-label-group {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .ritual-dash {
+        width: 40px;
+        height: 1px;
+        background: var(--accent-color);
+    }
+
+    .ritual-tag {
         font-size: 0.8rem;
         text-transform: uppercase;
         letter-spacing: 0.3em;
         color: var(--accent-color);
         font-weight: 700;
-        display: block;
-        margin-bottom: 1rem;
     }
 
-    .minimal-title {
+    .ritual-title-large {
         font-family: var(--font-display);
-        font-size: clamp(2.5rem, 5vw, 4rem);
+        font-size: clamp(3rem, 6vw, 5.5rem);
+        line-height: 1;
         color: var(--brand-dark);
         font-weight: 800;
-        letter-spacing: -0.02em;
-        text-transform: none;
+        letter-spacing: -0.03em;
     }
 
-    .minimal-line {
-        width: 60px;
-        height: 2px;
-        background-color: var(--accent-color);
-        margin: 2rem auto 0;
+    .ritual-italic {
+        color: var(--accent-color);
+        font-style: italic;
+        font-weight: 400;
     }
 
-    .ritual-grid-clean {
+    /* Magazine Collage */
+    .ritual-magazine-collage {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 4rem;
-        margin-bottom: 10rem;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 2rem;
+        position: relative;
+        z-index: 1;
     }
 
-    .ritual-step {
-        padding: 2rem;
-        transition: transform 0.4s var(--ease-out-expo);
+    .magazine-item {
+        background: var(--white);
+        padding: 3rem;
+        box-shadow: 0 30px 60px rgba(30, 45, 26, 0.04);
+        border-radius: var(--border-radius-md);
+        position: relative;
+        transition: transform 0.6s var(--ease-out-expo);
     }
 
-    .ritual-step:hover {
-        transform: translateY(-10px);
+    .magazine-item:hover {
+        transform: translateY(-15px);
     }
 
-    .step-header {
-        display: flex;
-        align-items: flex-end;
-        justify-content: space-between;
-        margin-bottom: 2rem;
-        padding-bottom: 1rem;
-        border-bottom: 1px solid rgba(0,0,0,0.05);
-    }
-
-    .step-number {
+    .magazine-num {
         font-family: var(--font-display);
-        font-size: 3rem;
+        font-size: 4rem;
         font-weight: 900;
         color: var(--brand-dark);
+        opacity: 0.5;
+        position: absolute;
+        top: 1.5rem;
+        right: 2rem;
         line-height: 1;
-        opacity: 0.1;
     }
 
-    .step-icon {
+    .magazine-title {
+        font-size: 1.6rem;
+        margin-bottom: 1rem;
+        color: var(--brand-dark);
+        font-weight: 700;
+    }
+
+    .magazine-text {
+        font-size: 1.05rem;
+        line-height: 1.6;
+        color: var(--text-secondary);
+        opacity: 0.8;
+    }
+
+    .magazine-icon-box {
+        margin-top: 2rem;
         font-size: 2rem;
         color: var(--accent-color);
     }
 
-    .step-title {
-        font-size: 1.5rem;
-        margin-bottom: 1.2rem;
-        color: var(--brand-dark);
-        font-weight: 700;
-        text-transform: none;
+    /* Collage Positioning */
+    .item-1 { grid-column: 1 / 6; z-index: 2; }
+    .item-2 { grid-column: 2 / 7; margin-top: -2rem; z-index: 3; background: var(--bg-secondary); }
+    .item-3 { grid-column: 1 / 6; margin-top: -2rem; z-index: 2; }
+
+    .magazine-visual {
+        grid-column: 7 / 13;
+        grid-row: 1 / 4;
+        position: relative;
+        padding-left: 2rem;
     }
 
-    .step-desc {
-        font-size: 1rem;
-        line-height: 1.8;
-        color: var(--text-secondary);
-        font-weight: 400;
-    }
-
-    /* Footer Image & Quote */
-    .ritual-footer-clean {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 6rem;
-        align-items: center;
-        background-color: #f9f9f5;
-        padding: 5rem;
-        border-radius: var(--border-radius-md);
-    }
-
-    .footer-quote-box {
-        padding-right: 2rem;
-    }
-
-    .footer-quote {
-        font-family: var(--font-display);
-        font-size: 2.2rem;
-        line-height: 1.3;
-        color: var(--brand-dark);
-        font-weight: 500;
-        margin-bottom: 2.5rem;
-        font-style: italic;
-    }
-
-    .footer-author {
-        display: flex;
-        flex-direction: column;
-        gap: 0.3rem;
-    }
-
-    .footer-author .name {
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        font-size: 1rem;
-    }
-
-    .footer-author .title {
-        color: var(--accent-color);
-        font-size: 0.8rem;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.15em;
-    }
-
-    .footer-image-minimal {
-        border-radius: var(--border-radius-md);
+    .visual-img-container {
+        position: relative;
+        border-radius: var(--border-radius-lg);
         overflow: hidden;
-        height: 400px;
-        box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+        height: 100%;
+        min-height: 600px;
+        box-shadow: 0 40px 80px rgba(30, 45, 26, 0.1);
     }
 
-    .footer-image-minimal img {
+    .visual-img {
         width: 100%;
         height: 100%;
         object-fit: cover;
+        transition: transform 1.5s var(--ease-out-expo);
+    }
+
+    .magazine-visual:hover .visual-img {
+        transform: scale(1.1);
+    }
+
+    .visual-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(30, 45, 26, 0.4), transparent);
+    }
+
+    .visual-badge {
+        position: absolute;
+        top: 3rem;
+        right: -1rem;
+        background: var(--accent-color);
+        color: white;
+        padding: 1rem 2rem;
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        transform: rotate(90deg) translateX(50%);
+        transform-origin: right center;
+    }
+
+    .visual-quote-card {
+        position: absolute;
+        bottom: 4rem;
+        left: -4rem;
+        background: var(--brand-dark);
+        color: white;
+        padding: 3.5rem;
+        max-width: 450px;
+        border-radius: var(--border-radius-md);
+        box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+        z-index: 4;
+    }
+
+    .visual-quote {
+        font-family: var(--font-display);
+        font-size: 2.2rem;
+        line-height: 1.2;
+        margin-bottom: 2rem;
+        font-style: italic;
+    }
+
+    .visual-author {
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        font-weight: 700;
+        color: var(--accent-color);
     }
 
     @media (max-width: 1024px) {
-        .ritual-grid-clean {
-            grid-template-columns: 1fr;
+        .ritual-magazine-collage {
+            display: flex;
+            flex-direction: column;
             gap: 2rem;
         }
 
-        .ritual-footer-clean {
-            grid-template-columns: 1fr;
-            padding: 3rem 2rem;
-            gap: 3rem;
+        .magazine-item {
+            margin: 0 !important;
+            padding: 2.5rem;
         }
 
-        .footer-quote {
+        .magazine-visual {
+            padding-left: 0;
+            margin-top: 4rem;
+        }
+
+        .visual-img-container {
+            min-height: 400px;
+        }
+
+        .visual-quote-card {
+            position: relative;
+            bottom: 0;
+            left: 0;
+            max-width: 100%;
+            margin-top: -2rem;
+        }
+
+        .visual-quote {
             font-size: 1.8rem;
         }
     }
@@ -1539,7 +1605,8 @@
     .cta-vignette {
         position: absolute;
         inset: 0;
-        background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%),
+        background: linear-gradient(to bottom, #000 0%, transparent 40%),
+                    linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%),
                     linear-gradient(to right, rgba(0,0,0,0.5) 0%, transparent 50%);
     }
 
@@ -1631,8 +1698,122 @@
     }
 
     /* ==========================================================================
+    Awning Decoration
+    ========================================================================== */
+    .awning-section {
+        position: relative;
+        width: 100%;
+        background-color: var(--brand-dark);
+        padding: 4rem 0 2rem;
+        margin-top: -2rem; /* Subtle overlap */
+        z-index: 10;
+        overflow: hidden;
+    }
+
+    .awning-container {
+        position: relative;
+        width: 100%;
+        height: 100px;
+        perspective: 1000px;
+    }
+
+    .awning-stripes {
+        position: absolute;
+        top: -120px;
+        left: 0;
+        width: 100%;
+        height: 180px;
+        background: repeating-linear-gradient(
+            90deg,
+            var(--accent-color) 0,
+            var(--accent-color) 80px,
+            var(--bg-primary) 80px,
+            var(--bg-primary) 160px
+        );
+        transform: rotateX(45deg);
+        transform-origin: bottom;
+        box-shadow: 0 30px 60px rgba(0,0,0,0.4),
+                    inset 0 -40px 50px rgba(0,0,0,0.3);
+        border-bottom: 3px solid rgba(0,0,0,0.2);
+    }
+
+    .awning-stripes::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+            110deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0) 40%,
+            rgba(255, 255, 255, 0.1) 50%,
+            rgba(255, 255, 255, 0) 60%,
+            transparent 100%
+        );
+        background-size: 200% 100%;
+        animation: awning-shimmer 8s linear infinite;
+        pointer-events: none;
+    }
+
+    @keyframes awning-shimmer {
+        0% { background-position: 200% 0; }
+        100% { background-position: -200% 0; }
+    }
+
+    .awning-scallops {
+        position: absolute;
+        bottom: -30px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 110%; /* Extra width to cover edges */
+        display: flex;
+        justify-content: center;
+    }
+
+    .scallop {
+        flex: 0 0 100px;
+        height: 50px;
+        background: var(--accent-color);
+        border-radius: 0 0 50px 50px;
+        margin: 0 -1px;
+        box-shadow: 0 15px 25px rgba(0,0,0,0.3);
+        position: relative;
+        z-index: 2;
+        transition: transform 0.5s var(--spring-easing);
+    }
+
+    .scallop:nth-child(even) {
+        background: var(--bg-primary);
+        z-index: 1;
+    }
+
+    .awning-section:hover .scallop {
+        transform: translateY(5px) rotate(1deg);
+    }
+
+    .awning-section:hover .scallop:nth-child(even) {
+        transform: translateY(8px) rotate(-1deg);
+    }
+
+    @media (max-width: 768px) {
+        .awning-stripes {
+            background: repeating-linear-gradient(
+                90deg,
+                var(--accent-color) 0,
+                var(--accent-color) 40px,
+                var(--bg-primary) 40px,
+                var(--bg-primary) 80px
+            );
+        }
+        .scallop {
+            flex: 0 0 50px;
+            height: 25px;
+        }
+    }
+
+    /* ==========================================================================
     Footer
     ========================================================================== */
+
     .footer {
         background-color: #0c120e; /* Even darker for premium feel */
         color: var(--bg-primary);
@@ -1663,8 +1844,28 @@
         top: 0;
         left: 5%;
         right: 5%;
-        height: 1px;
-        background: linear-gradient(90deg, transparent, rgba(255,112,67,0.4), rgba(135,171,68,0.4), transparent);
+        height: 2px;
+        background: linear-gradient(90deg, 
+            transparent 0%, 
+            rgba(200, 107, 40, 0) 20%, 
+            var(--accent-color) 50%, 
+            rgba(200, 107, 40, 0) 80%, 
+            transparent 100%
+        );
+        background-size: 200% 100%;
+        animation: footer-line-glow 4s linear infinite, footer-line-pulse 2s ease-in-out infinite;
+        filter: blur(0.5px);
+        z-index: 2;
+    }
+
+    @keyframes footer-line-glow {
+        0% { background-position: 150% 0; }
+        100% { background-position: -150% 0; }
+    }
+
+    @keyframes footer-line-pulse {
+        0%, 100% { opacity: 0.3; transform: scaleY(0.8); }
+        50% { opacity: 1; transform: scaleY(1.2); filter: drop-shadow(0 0 10px var(--accent-color)); }
     }
 
     .footer-grid {
