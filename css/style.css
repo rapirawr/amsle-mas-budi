@@ -5,8 +5,8 @@
         /* Color Palette - Luxury Organic Liquid */
         --bg-primary: #FDFDF9; /* Creamy coconut white */
         --bg-secondary: #F2F2EB;
-        --text-primary: #171E14; /* Deep rich forest black */
-        --text-secondary: #3F4D3A;
+        --text-primary: #000000; /* Deep rich forest black */
+        --text-secondary: #000000;
         --accent-color: #C86B28; /* Warm Palm Sugar Gold */
         --accent-dark: #A3521A;
         --brand-dark: #1E2D1A; /* Very dark rich green */
@@ -186,11 +186,12 @@
 
     .section-divider {
         width: 100%;
-        height: 60px;
+        height: 100px;
         background-color: var(--bg-primary);
         position: relative;
         z-index: 5;
         overflow: hidden;
+        margin-top: -1px;
     }
 
     .divider-wave {
@@ -216,6 +217,10 @@
     }
     .parallax-waves > use:nth-child(4) {
         animation-delay: -5s;
+        animation-duration: 16s;
+    }
+    .parallax-waves > use:nth-child(5) {
+        animation-delay: -6s;
         animation-duration: 20s;
     }
     
@@ -1256,146 +1261,173 @@
     }
 
     /* ==========================================================================
-    Ritual & Philosophy Section
+    Ritual & Philosophy Section - CLEAN MINIMALIST
     ========================================================================== */
-    .philosophy {
+    .ritual-clean {
         position: relative;
         background-color: var(--bg-primary);
+        padding: 8rem 0;
     }
 
-    .ritual-header {
-        margin-bottom: 8rem;
-        max-width: 800px;
-        margin-left: auto;
-        margin-right: auto;
+    .ritual-header-minimal {
+        text-align: center;
+        margin-bottom: 6rem;
     }
 
-    .ritual-grid {
+    .minimal-label {
+        font-family: var(--font-body);
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.3em;
+        color: var(--accent-color);
+        font-weight: 700;
+        display: block;
+        margin-bottom: 1rem;
+    }
+
+    .minimal-title {
+        font-family: var(--font-display);
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        color: var(--brand-dark);
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        text-transform: none;
+    }
+
+    .minimal-line {
+        width: 60px;
+        height: 2px;
+        background-color: var(--accent-color);
+        margin: 2rem auto 0;
+    }
+
+    .ritual-grid-clean {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 4rem;
+        margin-bottom: 10rem;
     }
 
-    .ritual-item {
-        position: relative;
-        padding: 2.5rem 2rem 2rem;
-        border-radius: var(--border-radius-md);
-        transition: transform 0.5s var(--ease-out-expo), box-shadow 0.5s var(--ease-out-expo);
+    .ritual-step {
+        padding: 2rem;
+        transition: transform 0.4s var(--ease-out-expo);
     }
 
-    .ritual-item:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 24px 48px rgba(78, 98, 39, 0.08);
-        background: rgba(255, 255, 255, 0.5);
+    .ritual-step:hover {
+        transform: translateY(-10px);
     }
 
-    .ritual-number {
-        position: absolute;
-        top: 0;
-        left: 1rem;
-        font-size: 7rem;
-        font-family: var(--font-display);
-        font-weight: 900;
-        line-height: 1;
-        color: var(--brand-dark);
-        opacity: 0.04;
-        z-index: 0;
-    }
-
-    .ritual-icon-box {
-        width: 72px;
-        height: 72px;
-        background: var(--white);
-        border-radius: 50%;
+    .step-header {
         display: flex;
-        align-items: center;
-        justify-content: center;
+        align-items: flex-end;
+        justify-content: space-between;
         margin-bottom: 2rem;
-        position: relative;
-        z-index: 1;
-        box-shadow: 0 8px 24px rgba(78, 98, 39, 0.06);
-        border: 2px solid transparent;
-        background-clip: padding-box;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
     }
 
-    .ritual-icon-box::before {
-        content: '';
-        position: absolute;
-        inset: -3px;
-        border-radius: 50%;
-        background: linear-gradient(135deg, var(--accent-color), var(--brand-light));
-        z-index: -1;
-        opacity: 0.4;
-        transition: opacity 0.4s ease;
-    }
-
-    .ritual-item:hover .ritual-icon-box::before {
-        opacity: 0.8;
-    }
-
-    .ritual-title {
-        font-size: 1.8rem;
-        margin-bottom: 1.5rem;
-        color: var(--brand-dark);
-    }
-
-    .ritual-text {
-        font-size: 1.05rem;
-        color: var(--text-secondary);
-        line-height: 1.8;
-    }
-
-    .ritual-visual-footer {
-        margin-top: 10rem;
-        display: grid;
-        grid-template-columns: 1.5fr 1fr;
-        gap: 5%;
-        align-items: center;
-    }
-
-    .ritual-quote-box {
-        padding: 4rem;
-        background: var(--brand-dark);
-        color: var(--bg-primary);
-        border-radius: var(--border-radius-lg);
-        position: relative;
-    }
-
-    .ritual-quote-box i {
-        font-size: 4rem;
-        color: var(--accent-color);
-        opacity: 0.3;
-        position: absolute;
-        top: 2rem;
-        left: 2rem;
-    }
-
-    .ritual-quote {
-        font-size: 2rem;
+    .step-number {
         font-family: var(--font-display);
-        font-weight: 600;
-        line-height: 1.4;
-        margin-bottom: 2rem;
-        position: relative;
-        z-index: 1;
+        font-size: 3rem;
+        font-weight: 900;
+        color: var(--brand-dark);
+        line-height: 1;
+        opacity: 0.1;
     }
 
-    .ritual-author {
-        font-size: 1rem;
-        text-transform: uppercase;
-        letter-spacing: 0.2em;
-        font-weight: 700;
+    .step-icon {
+        font-size: 2rem;
         color: var(--accent-color);
     }
 
-    @media (max-width: 992px) {
-        .ritual-grid {
+    .step-title {
+        font-size: 1.5rem;
+        margin-bottom: 1.2rem;
+        color: var(--brand-dark);
+        font-weight: 700;
+        text-transform: none;
+    }
+
+    .step-desc {
+        font-size: 1rem;
+        line-height: 1.8;
+        color: var(--text-secondary);
+        font-weight: 400;
+    }
+
+    /* Footer Image & Quote */
+    .ritual-footer-clean {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6rem;
+        align-items: center;
+        background-color: #f9f9f5;
+        padding: 5rem;
+        border-radius: var(--border-radius-md);
+    }
+
+    .footer-quote-box {
+        padding-right: 2rem;
+    }
+
+    .footer-quote {
+        font-family: var(--font-display);
+        font-size: 2.2rem;
+        line-height: 1.3;
+        color: var(--brand-dark);
+        font-weight: 500;
+        margin-bottom: 2.5rem;
+        font-style: italic;
+    }
+
+    .footer-author {
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+    }
+
+    .footer-author .name {
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        font-size: 1rem;
+    }
+
+    .footer-author .title {
+        color: var(--accent-color);
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+    }
+
+    .footer-image-minimal {
+        border-radius: var(--border-radius-md);
+        overflow: hidden;
+        height: 400px;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+    }
+
+    .footer-image-minimal img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    @media (max-width: 1024px) {
+        .ritual-grid-clean {
             grid-template-columns: 1fr;
-            gap: 6rem;
+            gap: 2rem;
         }
-        
-        .ritual-visual-footer {
+
+        .ritual-footer-clean {
             grid-template-columns: 1fr;
+            padding: 3rem 2rem;
+            gap: 3rem;
+        }
+
+        .footer-quote {
+            font-size: 1.8rem;
         }
     }
 
@@ -1475,110 +1507,127 @@
     /* ==========================================================================
     CTA Section
     ========================================================================== */
-    .cta-section {
+    /* ==========================================================================
+    CTA Section - BOLD MINIMALIST
+    ========================================================================== */
+    .cta-bold {
         position: relative;
-        padding: 10rem 5%;
+        height: 80vh;
+        min-height: 600px;
         display: flex;
         align-items: center;
         justify-content: center;
-        text-align: center;
-        color: var(--bg-primary);
         overflow: hidden;
+        background-color: #000;
     }
 
-    .cta-background {
+    .cta-visual {
         position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
+        inset: 0;
         z-index: 0;
     }
 
-    .cta-background img {
+    .cta-img-full {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        transition: transform 8s ease;
+        opacity: 0.8;
+        filter: blur(8px);
+        transform: scale(1.1); /* Prevent white edges from blur */
     }
 
-    .cta-section:hover .cta-background img {
-        transform: scale(1.05);
-    }
-
-    .cta-section::before {
-        content: '';
+    .cta-vignette {
         position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(180deg, rgba(18, 26, 21, 0.7) 0%, rgba(37, 20, 8, 0.85) 100%);
-        z-index: 1;
+        inset: 0;
+        background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%),
+                    linear-gradient(to right, rgba(0,0,0,0.5) 0%, transparent 50%);
     }
 
-    .cta-content {
-        max-width: 640px;
-        padding: 4rem 3rem;
-        background: rgba(255, 255, 255, 0.06);
-        backdrop-filter: blur(24px) saturate(1.2);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: var(--border-radius-lg);
+    .cta-inner {
         position: relative;
-        z-index: 2;
+        z-index: 1;
+        width: 100%;
+        max-width: var(--container-width);
+        padding: 0 5%;
     }
 
-    .cta-content::before {
-        content: '';
-        position: absolute;
-        inset: -1px;
-        border-radius: var(--border-radius-lg);
-        background: linear-gradient(135deg, rgba(255,112,67,0.3), transparent 60%);
-        z-index: -1;
-        opacity: 0;
-        transition: opacity 0.6s ease;
+    .cta-content-box {
+        max-width: 800px;
+        text-align: left;
     }
 
-    .cta-content:hover::before {
-        opacity: 1;
+    .cta-headline {
+        font-family: var(--font-display);
+        font-size: clamp(3.5rem, 8vw, 6rem);
+        line-height: 0.95;
+        color: #fff;
+        margin-bottom: 2rem;
+        letter-spacing: -0.04em;
+        text-transform: none;
     }
 
-    .cta-title {
-        font-size: clamp(2.5rem, 4vw, 3.5rem);
-        margin-bottom: 1.5rem;
-        text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+    .cta-accent {
+        color: var(--accent-color);
+        font-style: italic;
+        font-weight: 400;
     }
 
-    .cta-desc {
-        font-size: 1.1rem;
-        margin-bottom: 2.5rem;
-        opacity: 0.85;
-        line-height: 1.8;
-    }
-
-    .cta-form {
-        display: flex;
-        gap: 1rem;
-    }
-
-    .cta-form .btn-primary {
-        box-shadow: 0 0 0 0 rgba(255, 112, 67, 0.4);
-        animation: ctaGlow 3s ease-in-out infinite;
-    }
-
-    @keyframes ctaGlow {
-        0%, 100% { box-shadow: 0 0 0 0 rgba(255, 112, 67, 0.4); }
-        50% { box-shadow: 0 0 30px 6px rgba(255, 112, 67, 0.2); }
-    }
-
-    .cta-form input {
-        flex: 1;
-        padding: 1rem 1.5rem;
-        border-radius: 100px;
-        border: none;
-        outline: none;
+    .cta-subtext {
         font-family: var(--font-body);
+        font-size: 1.2rem;
+        color: rgba(255, 255, 255, 0.8);
+        max-width: 500px;
+        line-height: 1.6;
+        margin-bottom: 3.5rem;
+        font-weight: 300;
+    }
+
+    .cta-main-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 1.2rem;
+        padding: 1.5rem 3rem;
+        background-color: var(--accent-color);
+        color: #fff;
+        font-family: var(--font-body);
+        font-weight: 700;
         font-size: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        transition: all 0.4s var(--ease-out-expo);
+        box-shadow: 0 10px 30px rgba(200, 107, 40, 0.3);
+    }
+
+    .cta-main-btn:hover {
+        background-color: #fff;
+        color: #000;
+        transform: scale(1.05);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .cta-main-btn i {
+        font-size: 1.5rem;
+    }
+
+    @media (max-width: 1024px) {
+        .cta-headline {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .cta-bold {
+            height: auto;
+            padding: 8rem 0;
+        }
+        
+        .cta-content-box {
+            text-align: center;
+        }
+
+        .cta-subtext {
+            margin: 0 auto 3rem;
+        }
     }
 
     /* ==========================================================================
