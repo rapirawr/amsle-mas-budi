@@ -48,12 +48,23 @@
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
-            <a href="#" class="brand-logo"><img src="assets/img/logo.png" alt="Amsle Logo" style="height: 70px; width: auto;"></a>
+            <a href="#" class="brand-logo">
+                <img src="assets/img/logo1.png" alt="Amsle Logo" class="logo-light" style="height: 70px; width: auto;">
+                <img src="assets/img/logo.png" alt="Amsle Logo" class="logo-dark" style="height: 70px; width: auto;">
+            </a>
             <div class="nav-links">
+                <div class="sidebar-decor">
+                    <lottie-player src="assets/lotties/bowl.json" background="transparent" speed="1" style="width: 50px; height: 50px;" loop autoplay></lottie-player>
+                    <span class="sidebar-tagline">Est. 2026<br>Jawa Timur</span>
+                </div>
                 <a href="#home" class="nav-link">Beranda</a>
                 <a href="#about" class="nav-link">Kisah Kami</a>
                 <a href="#products" class="nav-link">Menu</a>
                 <a href="#ritual" class="nav-link">Tradisi</a>
+                
+                <div class="sidebar-footer-decor">
+                    <p class="sidebar-quote">"Semangkok amsle sebelum kiamat"</p>
+                </div>
             </div>
             <div class="nav-actions">
                 <a href="https://wa.me/6283890125451?text=Halo%2C%20saya%20ingin%20memesan%20Amsle%20Mas%20Budi" target="_blank" class="btn btn-outline">
@@ -68,71 +79,44 @@
 
     <main data-scroll-container>
         <!-- Hero Section -->
-        <section id="home" class="hero section-padding">
-            <div class="hero-bg-text">AMSLE BUDI</div>
-            <div class="hero-bg-text-outline parallax-element" data-speed="0.1">TRADISI</div>
-            
-            <div class="geo-shape floating-shape-1 shape-rotate parallax-element" data-speed="-0.2">
-                <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M100 0 L110 80 L190 90 L110 100 L100 180 L90 100 L10 90 L90 80 Z" />
-                </svg>
+        <section id="home" class="hero">
+            <div class="hero-image-fullbleed">
+                <img src="assets/img/amsle-aesthetic.png" alt="Semangkuk Amsle Hangat" class="hero-bg-img">
+                <div class="hero-gradient-overlay"></div>
             </div>
-            <div class="geo-shape floating-shape-2 shape-float parallax-element" data-speed="0.15">
-                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="50" cy="50" r="40" stroke="currentColor" stroke-width="0.5" fill="none" stroke-dasharray="2 2" />
-                    <circle cx="50" cy="50" r="30" stroke="currentColor" stroke-width="1" fill="none" />
-                </svg>
-            </div>
-            <div class="hero-content">
-                <div class="hero-text-wrapper parallax-element" data-speed="0.05">
-                    <p class="hero-subtitle reveal-text">Amsle Mas Budi</p>
-                    <h1 class="hero-title">
-                        <div class="line"><span class="reveal-text">Tradisi</span></div>
-                        <div class="line"><span class="reveal-text">Kehangatan</span></div>
-                        <div class="line"><span class="reveal-text">dalam</span></div>
-                        <div class="line"><span class="reveal-text italic-accent">Semangkuk Amsle.</span></div>
+
+            <div class="hero-inner">
+                <div class="hero-text-panel scroll-reveal"> 
+                    <span class="hero-origin">Kembang, Bondowoso &mdash; Jawa Timur</span>
+                    <h1 class="hero-headline">
+                        Tradisi<br>Kehangatan<br>
+                        <span class="hero-headline-accent">dalam Semangkuk Amsle.</span>
                     </h1>
-                    <p class="hero-description reveal-fade">Menghadirkan kembali memori klasik melalui wedang Amsle dengan perpaduan kuah santan hangat beraroma jahe dan isian rempah Nusantara.</p>
-                    <div class="hero-cta reveal-fade">  
-                        <a href="#products" class="btn btn-primary">
+                    <div class="hero-line"></div>
+                    <p class="hero-lead">Kuah santan hangat beraroma jahe, diisi petulo lembut, kacang hijau, ketan putih punel, sagu mutiara, dan taburan kacang sangrai.</p>
+                    
+                    <div class="hero-pills">
+                        <span class="hero-pill"><i class="ri-leaf-line"></i> Santan Murni</span>
+                        <span class="hero-pill"><i class="ri-fire-line"></i> Jahe Emprit</span>
+                        <span class="hero-pill"><i class="ri-cup-line"></i> Gula Aren</span>
+                    </div>
+
+                    <div class="hero-actions">
+                        <a href="#products" class="btn btn-primary hero-btn-main">
                             Lihat Menu <i class="ri-arrow-right-line"></i>
+                        </a>
+                        <a href="https://wa.me/6283890125451?text=Halo%2C%20saya%20ingin%20memesan%20Amsle%20Mas%20Budi" target="_blank" class="hero-btn-wa">
+                            <i class="ri-whatsapp-line"></i> Pesan Langsung
                         </a>
                     </div>
                 </div>
-                <div class="hero-visual parallax-element" data-speed="-0.1">
-                    <div class="hero-image-container parallax-image">
-                        <img src="assets/img/amsle-aesthetic.png" alt="Semangkuk Amsle Hangat Aesthetic" class="hero-img">
-                        <div class="image-overlay"></div>
-                    </div>
-                    <div class="hero-badge floating">
-                        <svg viewBox="0 0 100 100" class="badge-text">
-                            <path id="curve" d="M 50 50 m -35 0 a 35 35 0 1 1 70 0 a 35 35 0 1 1 -70 0" />
-                            <text><textPath href="#curve"> AMSLE&bull; MAS &bull; BUDI&bull; SIP&bull;</textPath></text>
-                        </svg>
-                        <div class="badge-icon">
-                            <lottie-player src="assets/lotties/bowl.json" background="transparent" speed="1" style="width: 60px; height: 60px;" loop autoplay></lottie-player>
-                        </div>
-                    </div>
-                </div>
+
+                <!-- <div class="hero-badge-float scroll-reveal stagger-2">
+                    <span class="badge-amount">Rp 15k</span>
+                    <span class="badge-per">/ porsi</span>
+                </div> -->
             </div>
         </section>
-
-        <!-- Marquee -->
-        <div class="marquee-wrapper">
-            <div class="marquee-content">  
-                <span>Gurih Santan</span> <span>&mdash;</span>
-                <span>Hangat Jahe</span> <span>&mdash;</span>
-                <span>Ketan Putih</span> <span>&mdash;</span>
-                <span>Sagu Mutiara</span> <span>&mdash;</span>
-                <span>Kacang Sangrai</span> <span>&mdash;</span>
-                <span>Petulo Lembut</span> <span>&mdash;</span>
-                <span>Gurih Santan</span> <span>&mdash;</span>
-                <span>Hangat Jahe</span> <span>&mdash;</span>
-                <span>Ketan Putih</span> <span>&mdash;</span>
-                <span>Sagu Mutiara</span> <span>&mdash;</span>
-                <span>Kacang Sangrai</span> <span>&mdash;</span>
-            </div>
-        </div>
 
         <!-- <div class="section-divider">
             <svg class="divider-wave" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none">
@@ -148,53 +132,49 @@
             </svg>
         </div> -->
 
-        <!-- About Section Restyled -->
-        <section id="about" class="about">
-            <div class="about-bg-text parallax-element" data-speed="0.2">AUTHENTIC</div>
-            
+        <!-- About Section Editorial -->
+        <section id="about" class="about section-padding">
             <div class="about-container">
-                <div class="about-grid">
-                    <div class="about-images-restyled">
-                        <div class="main-img-box parallax-image scroll-reveal">
-                            <img loading="lazy" src="assets/img/gerobak1.jpeg" alt="Bahan baku ketan dan kacang hijau">
+                <div class="editorial-grid">
+                    <div class="about-visual">
+                        <div class="editorial-frame">
+                            <img loading="lazy" src="assets/img/gerobak1.jpeg" alt="Bahan baku ketan dan kacang hijau" class="editorial-img-main">
                         </div>
-                        <div class="secondary-img-box parallax-element scroll-reveal stagger-1" data-speed="0.1">
-                            <img loading="lazy" src="assets/img/gerobak2.jpeg" alt="Santan murni untuk kuah Amsle">
+                        <div class="editorial-frame-small">
+                            <img loading="lazy" src="assets/img/gerobak2.jpeg" alt="Santan murni untuk kuah Amsle" class="editorial-img-secondary">
                         </div>
                     </div>
                     
-                    <div class="about-content-restyled">
-                        <span class="section-label scroll-reveal">
-                            <svg class="label-geo" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: inline-block; vertical-align: middle; margin-right: 8px;">
-                                <rect x="4" y="4" width="16" height="16" stroke="currentColor" stroke-width="2" />
-                                <rect x="8" y="8" width="8" height="8" fill="currentColor" />
-                            </svg>
-                            Kisah Kami
-                        </span>
+                    <div class="about-content">
+                        <span class="editorial-label">Kisah Kami</span>
                         
-                        <h2 class="about-title-large scroll-reveal">
+                        <h2 class="editorial-title" style="margin-bottom: 1rem;">
                             Melestarikan <br>
-                            <span class="outline-text">Resep Klasik</span>
-                            Nusantara.
+                            <span class="italic-accent">Resep Klasik</span> Nusantara.
                         </h2>
                         
-                        <div class="about-desc-editorial scroll-reveal">
+                        <div class="editorial-divider" style="margin-top: 2rem; margin-bottom: 2rem;"></div>
+
+                        <div class="about-desc">
                             <p>Amsle atau wedang Amsle adalah kebanggaan kuliner Jawa Timur, khususnya Malang. Kami menyajikannya persis seperti resep leluhur—menyerupai kolak gurih dengan kuah santan hangat beraroma jahe yang khas dan melegakan.</p>
+                            <br>
                             <p>Setiap mangkuk Amsle berisi harmoni rasa dan tekstur: petulo yang lembut, kacang hijau bergizi, ketan putih punel, sagu mutiara, dan diakhiri dengan kerenyahan kacang tanah sangrai.</p>
                         </div>
                         
-                        <div class="stats-grid-restyled scroll-reveal">
-                            <div class="stat-item-minimal">
-                                <span class="stat-number-bold"><span class="counter" data-target="7">0</span></span>
-                                <span class="stat-label-muted">Isian Autentik</span>
+                        <div class="editorial-stats">
+                            <div class="stat-item">
+                                <span class="stat-num">07</span>
+                                <span class="stat-text">Isian<br>Autentik</span>
                             </div>
-                            <div class="stat-item-minimal">
-                                <span class="stat-number-bold"><span class="counter" data-target="100">0</span>%</span>
-                                <span class="stat-label-muted">Santan Murni</span>
+                            <div class="stat-line"></div>
+                            <div class="stat-item">
+                                <span class="stat-num">100%</span>
+                                <span class="stat-text">Santan<br>Murni</span>
                             </div>
-                            <div class="stat-item-minimal">
-                                <span class="stat-number-bold"><span class="counter" data-target="5">0</span>k+</span>
-                                <span class="stat-label-muted">Porsi Terjual</span>
+                            <div class="stat-line"></div>
+                            <div class="stat-item">
+                                <span class="stat-num">5k+</span>
+                                <span class="stat-text">Porsi<br>Terjual</span>
                             </div>
                         </div>
                     </div>
@@ -346,7 +326,7 @@
                         <span class="ritual-author">— Mas Budi</span>
                     </div>
                     <div class="ritual-image parallax-image" style="border-radius: var(--border-radius-md); overflow: hidden; height: 350px;">
-                        <img loading="lazy" src="assets/img/amsle-aesthetic.png" alt="Detail bahan baku Amsle" style="width: 100%; height: 100%; object-fit: fill;">
+                        <img loading="lazy" src="assets/img/mas-budi.jpg" alt="Detail bahan baku Amsle" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                 </div>
             </div>
@@ -368,7 +348,6 @@
         </section>
 
         <footer id="contact" class="footer">
-            <div class="footer-bg-text">AMSLE</div>
             <div class="footer-grid">
                 <div class="footer-brand scroll-reveal">
                     <h2 class="footer-logo"><img loading="lazy" src="assets/img/logo1.png" alt="Logo" style="width: 50%;"></h2>
