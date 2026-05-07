@@ -1,5 +1,21 @@
 /* ==========================================================================
-   Preloader (Modernized)
+   Preloader Spinner (pengganti Lottie yang berat)
+   ========================================================================== */
+.preloader-spinner {
+    width: 56px;
+    height: 56px;
+    border: 3px solid rgba(78, 98, 39, 0.12);
+    border-top-color: var(--brand-dark);
+    border-radius: 50%;
+    animation: spinLoader 0.8s linear infinite;
+}
+
+@keyframes spinLoader {
+    to { transform: rotate(360deg); }
+}
+
+/* ==========================================================================
+   Preloader
    ========================================================================== */
 .preloader {
     position: fixed;
@@ -13,13 +29,12 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    transition: opacity 1s var(--ease-out-expo), transform 1s var(--ease-out-expo);
+    transition: opacity 0.8s var(--ease-out-expo);
 }
 
 .preloader.fade-out {
     opacity: 0;
     pointer-events: none;
-    transform: scale(1.02);
 }
 
 .preloader-text {
@@ -37,7 +52,7 @@
 
 .preloader-text span {
     transform: translateY(100%);
-    animation: revealChar 0.6s var(--ease-out-expo) forwards;
+    animation: revealChar 0.5s var(--ease-out-expo) forwards;
 }
 
 .preloader-text span:nth-child(1) { animation-delay: 0.1s; }
@@ -45,12 +60,12 @@
 .preloader-text span:nth-child(3) { animation-delay: 0.2s; }
 .preloader-text span:nth-child(4) { animation-delay: 0.25s; }
 .preloader-text span:nth-child(5) { animation-delay: 0.3s; }
-.preloader-text span:nth-child(6) { animation-delay: 0.4s; } /* Logo animation */
+.preloader-text span:nth-child(6) { animation-delay: 0.4s; }
 
 .preloader-progress {
-    width: 250px;
-    height: 4px;
-    background-color: rgba(78, 98, 39, 0.1); /* Subtle brand dark */
+    width: 220px;
+    height: 3px;
+    background-color: rgba(78, 98, 39, 0.1);
     margin-top: 2.5rem;
     position: relative;
     overflow: hidden;
@@ -74,61 +89,72 @@
 }
 
 @keyframes progress {
-    0% { width: 0%; }
-    40% { width: 60%; }
+    0%   { width: 0%; }
+    40%  { width: 60%; }
     100% { width: 100%; }
 }
 
 /* ==========================================================================
-   Scroll Animations
+   Hero Load Animations
    ========================================================================== */
 .reveal-text {
     display: inline-block;
-    transform: translateY(100%) rotate(2deg);
+    transform: translateY(80%);
     opacity: 0;
-    filter: blur(8px);
 }
 
 .reveal-fade {
     opacity: 0;
-    transform: translateY(30px) scale(0.98);
-    filter: blur(4px);
+    transform: translateY(24px);
 }
 
 body.loaded .reveal-text {
-    animation: slideUpSpatial 1.2s var(--spring-easing) forwards;
+    animation: slideUp 0.9s var(--ease-out-expo) forwards;
 }
 
 body.loaded .reveal-fade {
-    animation: fadeUpSpatial 1.2s var(--ease-out-expo) forwards;
+    animation: fadeUp 0.9s var(--ease-out-expo) forwards;
 }
 
-/* Delays for hero section */
-body.loaded .hero-subtitle { animation-delay: 0.2s; }
+/* Stagger delays untuk hero */
+body.loaded .hero-subtitle                              { animation-delay: 0.2s; }
 body.loaded .hero-title .line:nth-child(1) .reveal-text { animation-delay: 0.3s; }
 body.loaded .hero-title .line:nth-child(2) .reveal-text { animation-delay: 0.4s; }
 body.loaded .hero-title .line:nth-child(3) .reveal-text { animation-delay: 0.5s; }
 body.loaded .hero-title .line:nth-child(4) .reveal-text { animation-delay: 0.6s; }
-body.loaded .hero-description { animation-delay: 0.8s; }
-body.loaded .hero-cta { animation-delay: 1s; }
+body.loaded .hero-description                           { animation-delay: 0.75s; }
+body.loaded .hero-cta                                   { animation-delay: 0.9s; }
 
-/* Scroll trigger classes - 2026 Spatial Trend */
+@keyframes slideUp {
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeUp {
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* ==========================================================================
+   Scroll Reveal — tanpa blur (blur sangat berat di GPU)
+   ========================================================================== */
 .scroll-reveal {
     opacity: 0;
-    transform: translateY(40px) scale(0.96);
-    filter: blur(10px);
-    transition: opacity 1s var(--ease-out-expo), 
-                transform 1s var(--spring-easing), 
-                filter 1s var(--ease-out-expo);
-    will-change: opacity, transform, filter;
+    transform: translateY(32px);
+    transition: opacity 0.7s var(--ease-out-expo),
+                transform 0.7s var(--ease-out-expo);
 }
 
 .scroll-reveal.is-revealed {
     opacity: 1;
-    transform: translateY(0) scale(1);
-    filter: blur(0);
+    transform: translateY(0);
 }
 
+/* Stagger delays */
 .stagger-1 { transition-delay: 0.1s; }
 .stagger-2 { transition-delay: 0.2s; }
 .stagger-3 { transition-delay: 0.3s; }
@@ -136,65 +162,37 @@ body.loaded .hero-cta { animation-delay: 1s; }
 .stagger-5 { transition-delay: 0.5s; }
 .stagger-6 { transition-delay: 0.6s; }
 
-/* Floating animation - Added subtle rotation */
+/* ==========================================================================
+   Floating animation — lebih ringan, sekali per elemen
+   ========================================================================== */
 .floating {
-    animation: floatingSpatial 8s ease-in-out infinite;
-    transform-origin: center;
+    animation: floatingSimple 6s ease-in-out infinite;
 }
 
-@keyframes slideUpSpatial {
-    to {
-        transform: translateY(0) rotate(0deg);
-        opacity: 1;
-        filter: blur(0);
-    }
-}
-
-@keyframes fadeUpSpatial {
-    to {
-        transform: translateY(0) scale(1);
-        opacity: 1;
-        filter: blur(0);
-    }
-}
-
-@keyframes floatingSpatial {
-    0% { transform: translateY(0px) rotate(0deg); }
-    33% { transform: translateY(-12px) rotate(1.5deg); }
-    66% { transform: translateY(5px) rotate(-1deg); }
-    100% { transform: translateY(0px) rotate(0deg); }
+@keyframes floatingSimple {
+    0%, 100% { transform: translateY(0px); }
+    50%       { transform: translateY(-10px); }
 }
 
 /* ==========================================================================
-   Smooth Scrolling adjustments
+   SVG Path Drawing
    ========================================================================== */
-/* Hide scrollbar for cleaner look if custom scroll implemented */
-/* SVG Path Drawing Animation */
 .path-anim {
-    stroke-dasharray: 1000;
-    stroke-dashoffset: 1000;
-    animation: drawPath 8s linear infinite;
+    stroke-dasharray: 800;
+    stroke-dashoffset: 800;
+    animation: drawPath 10s linear infinite;
 }
 
 @keyframes drawPath {
-    0% { stroke-dashoffset: 1000; }
-    50% { stroke-dashoffset: 0; }
-    100% { stroke-dashoffset: -1000; }
+    0%   { stroke-dashoffset: 800; }
+    50%  { stroke-dashoffset: 0; }
+    100% { stroke-dashoffset: -800; }
 }
 
-::-webkit-scrollbar {
-    width: 8px;
-}
-
-::-webkit-scrollbar-track {
-    background: var(--bg-primary); 
-}
- 
-::-webkit-scrollbar-thumb {
-    background: var(--brand-dark); 
-    border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: var(--accent-color); 
-}
+/* ==========================================================================
+   Scrollbar
+   ========================================================================== */
+::-webkit-scrollbar       { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--brand-dark); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent-color); }
